@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import cat from './../../assets/kitty.jpg'
 import CardText from "./CardText"
+import { useParams } from 'react-router';
 
 type getCommsResponse = {
   title: string;
@@ -12,10 +13,11 @@ type getCommsResponse = {
 
 const Card: FC = () => {
 
+  const { userId } = useParams()
   // Test user ids
-  const userId = '0fe5eb58-a60a-4bc8-a32f-9127a1ac7df4' // 1 cat
-  // const userId = 'ff535484-6880-4653-b06e-89983ecf4ed5' // 2 cats
-  // const userId = 'ea17433d-7527-45a5-acbc-2e2f78f95c6e' // 3 cats
+  // '0fe5eb58-a60a-4bc8-a32f-9127a1ac7df4' // 1 cat
+  // 'ff535484-6880-4653-b06e-89983ecf4ed5' // 2 cats
+  // 'ea17433d-7527-45a5-acbc-2e2f78f95c6e' // 3 cats
 
   const [data, setData] = useState<getCommsResponse>({
     title: '',
@@ -39,7 +41,7 @@ const Card: FC = () => {
     } catch (error) {
       if (error instanceof Error) {
         // Assuming the only error for now would be user not found
-        setError(`Oops! We couldn't find a user with that ID`)
+        setError(`Oops! We couldn't find a user with that ID ${userId}`,)
       }
       } finally {
         setLoading(false)
